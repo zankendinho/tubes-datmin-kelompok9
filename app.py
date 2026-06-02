@@ -373,7 +373,10 @@ elif page == "📊 Visualisasi Proses":
         st.info("ℹ️ Outlier tidak dihapus karena merepresentasikan kondisi nyata dalam data sensus.")
 
     # ── SECTION 3: CLUSTERING ─────────────────
+        import streamlit as st
     st.header("3️⃣ Proses Clustering — K-Means (K=2)")
+    st.image('grafik_evaluasi.png', caption='Visualisasi Elbow Method & Silhouette Analysis', use_column_width=True)
+
     st.subheader("Penentuan K Optimal")
     col_k1, col_k2, col_k3 = st.columns(3)
     col_k1.metric("K Optimal", "K = 2")
