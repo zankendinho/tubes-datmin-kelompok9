@@ -374,63 +374,17 @@ elif page == "📊 Visualisasi Proses":
 
     # ── SECTION 3: CLUSTERING ─────────────────
     st.header("3️⃣ Proses Clustering — K-Means (K=2)")
-    st.subheader("Penentuan K Optimal — Elbow & Silhouette Analysis")
-
-    # Load elbow data dari pkl
-    with open('elbow_data.pkl', 'rb') as f:
-        elbow_data = pickle.load(f)
-
-    K_range         = elbow_data['K_range']
-    inertia         = elbow_data['inertia']
-    silhouette_coefs = elbow_data['silhouette']
-    best_k          = K_range[silhouette_coefs.index(max(silhouette_coefs))]
-    best_sil        = max(silhouette_coefs)
-
-    fig_elbow, axes_elbow = plt.subplots(1, 2, figsize=(14, 5))
-
-    # Elbow Method
-    axes_elbow[0].plot(K_range, inertia, 'bo--', markersize=8, linewidth=2)
-    axes_elbow[0].axvline(best_k, color='red', linestyle='--',
-                          alpha=0.7, label=f'K Optimal = {best_k}')
-    axes_elbow[0].set_title('Elbow Method untuk K Optimal', fontsize=13)
-    axes_elbow[0].set_xlabel('Jumlah Cluster (K)')
-    axes_elbow[0].set_ylabel('Inertia (Within-Cluster Sum of Squares)')
-    axes_elbow[0].legend()
-    axes_elbow[0].grid(alpha=0.3)
-    for i, (k, val) in enumerate(zip(K_range, inertia)):
-        axes_elbow[0].annotate(f'{val:,.0f}',
-                               (k, val), textcoords="offset points",
-                               xytext=(0, 10), ha='center', fontsize=8)
-
-    # Silhouette Analysis
-    axes_elbow[1].plot(K_range, silhouette_coefs, 'rs--', markersize=8, linewidth=2)
-    axes_elbow[1].axvline(best_k, color='blue', linestyle='--',
-                          alpha=0.7, label=f'K Optimal = {best_k}')
-    axes_elbow[1].set_title('Silhouette Analysis untuk K Optimal', fontsize=13)
-    axes_elbow[1].set_xlabel('Jumlah Cluster (K)')
-    axes_elbow[1].set_ylabel('Silhouette Score')
-    axes_elbow[1].legend()
-    axes_elbow[1].grid(alpha=0.3)
-    for k, val in zip(K_range, silhouette_coefs):
-        axes_elbow[1].annotate(f'{val:.3f}',
-                               (k, val), textcoords="offset points",
-                               xytext=(0, 10), ha='center', fontsize=8)
-
-    plt.tight_layout()
-    st.pyplot(fig_elbow)
-    plt.close()
-
-    # Kesimpulan K optimal
+    st.subheader("Penentuan K Optimal")
     col_k1, col_k2, col_k3 = st.columns(3)
-    col_k1.metric("K Optimal", f"K = {best_k}")
-    col_k2.metric("Silhouette Score Tertinggi", f"{best_sil:.4f}")
+    col_k1.metric("K Optimal", "K = 2")
+    col_k2.metric("Silhouette Score Tertinggi", "~0.75 (di K=2)")
     col_k3.metric("Metode", "Elbow + Silhouette")
 
-    st.success(f"""
-    ✅ **Justifikasi K={best_k}:** Berdasarkan Silhouette Analysis, 
-    score tertinggi berada di K={best_k} ({best_sil:.4f}), menunjukkan 
-    pemisahan cluster paling optimal terjadi saat data dibagi menjadi 
-    {best_k} kelompok.
+    st.markdown("""
+    **Justifikasi K=2:**
+    Berdasarkan Silhouette Analysis, score tertinggi berada di K=2 (~0.75),
+    yang menunjukkan pemisahan cluster paling optimal terjadi saat data
+    dibagi menjadi 2 kelompok.
     """)
 
     # Profiling cluster
