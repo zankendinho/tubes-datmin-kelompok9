@@ -128,6 +128,19 @@ if page == "🔮 Prediksi Segmentasi":
                 "Tingkat Pendidikan (education.num)", 1, 16, 10,
                 help="1=Tidak Sekolah · 9=SMA · 13=S1 · 14=S2 · 16=S3"
             )
+            with st.expander("📖 Referensi Skala Education.num"):
+    st.dataframe(pd.DataFrame({
+        "Angka": ["1–5", "6–8", "9", "10–12", "13", "14", "15–16"],
+        "Setara": [
+            "SD / Tidak Tamat SD",
+            "SMP",
+            "SMA / Sederajat",
+            "Diploma / Sebagian Kuliah",
+            "S1 (Bachelor)",
+            "S2 (Master)",
+            "S3 (Doctorate / Prof)"
+        ]
+    }), use_container_width=True, hide_index=True)
 
             hours_per_week = st.slider(
                 "Jam Kerja per Minggu", 1, 99, 40
